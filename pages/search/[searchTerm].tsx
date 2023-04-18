@@ -1,20 +1,22 @@
 import React, { useState } from "react";
-import axios from "axios";
-import { BASE_URL } from "@/utils";
 import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/router";
-import VideoCard from "@/components/VideoCard";
-import NoResults from "@/components/NoResults";
-import { IUser, Video } from "@/types";
-import useAuthStore from "@/store/authStore";
 import { GoVerified } from "react-icons/go";
-const searchTerm = ({ videos }: { videos: Video[] }) => {
+import Link from "next/link";
+import axios from "axios";
+
+import NoResults from "../../components/NoResults";
+import VideoCard from "../../components/VideoCard";
+import useAuthStore from "../../store/authStore";
+import { BASE_URL } from "../../utils";
+import { IUser, Video } from "../../types";
+
+const Search = ({ videos }: { videos: Video[] }) => {
   const [isAccounts, setIsAccounts] = useState(false);
 
   const router = useRouter();
   const { searchTerm }: any = router.query;
-  const { allUsers } = useAuthStore();
+  const { allUsers }: { allUsers: IUser[] } = useAuthStore();
   const accounts = isAccounts ? "border-b-2 border-black" : "text-gray-400";
   const isVideos = !isAccounts ? "border-b-2 border-black" : "text-gray-400";
 
@@ -95,6 +97,6 @@ export const getServerSideProps = async ({
   };
 };
 
-export default searchTerm;
+export default Search;
 
 //2.14;
